@@ -59,7 +59,7 @@ class User extends AbstractEntity implements UserInterface
     private $roles;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Domain\Entity\Task", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Task", mappedBy="user")
      */
     private $tasks;
 
