@@ -2,7 +2,18 @@
 
 namespace AppBundle\DTO;
 
+use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Validator\EditUser\UniqueEntityEdit;
 
+/**
+ * Class EditUserDTO
+ * @package AppBundle\DTO
+ * @UniqueEntityEdit(
+ *     class="AppBundle\Entity\User",
+ *     fields={"username", "email"},
+ *     message="this value is already used"
+ * )
+ */
 class EditUserDTO
 {
     /**
