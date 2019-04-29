@@ -3,6 +3,7 @@
 namespace AppBundle\DTO;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Validator\CreateUser\UniqueEntity;
 
 class CreateUserDTO
 {
@@ -12,6 +13,11 @@ class CreateUserDTO
      * @Assert\Length(
      *     max=25,
      *     maxMessage="Votre nom d'utilisateur ne peut pas excéder 25 caractéres."
+     * )
+     * @UniqueEntity(
+     *     class="AppBundle\Entity\User",
+     *     fields="username",
+     *     message="Ce nom d'utilisateur est déjà utilisé."
      * )
      */
     public $username;
@@ -33,6 +39,11 @@ class CreateUserDTO
      * @Assert\Length(
      *     max=60,
      *     maxMessage="Votre email ne peut pas excéder 60 caractéres."
+     * )
+     * @UniqueEntityInput(
+     *     class="AppBundle\Entity\User",
+     *     fields="email",
+     *     message="Cette email est déjà utilisée."
      * )
      */
     public $email;
