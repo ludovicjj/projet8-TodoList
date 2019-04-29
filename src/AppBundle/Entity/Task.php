@@ -6,26 +6,18 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
- * @ORM\Table
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\TaskRepository")
+ * @ORM\Table(name="task")
  */
-class Task
+class Task extends AbstractEntity
 {
     /**
-     * @ORM\Column(type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $createdAt;
-
-    /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=25)
      * @Assert\NotBlank(message="Vous devez saisir un titre.")
+     * @Assert\Length(
+     *     max=25,
+     *     maxMessage="Le titre ne peut pas excéder 25 caractéres."
+     * )
      */
     private $title;
 
@@ -40,52 +32,70 @@ class Task
      */
     private $isDone;
 
-    public function __construct()
-    {
-        $this->createdAt = new \Datetime();
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="tasks")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
+     */
+    private $user;
+
+    /**
+     * Task constructor.
+     * @param string $title
+     * @param string $content
+     * @param User|null $user
+     * @throws \Exception
+     */
+    public function __construct(
+        string $title,
+        string $content,
+        $user
+    ) {
+        $this->title = $title;
+        $this->content = $content;
+        $this->user = $user;
         $this->isDone = false;
+        parent::__construct();
     }
 
-    public function getId()
-    {
-        return $this->id;
+    /**
+     * @param string $title
+     * @param string $content
+     */
+    public function update(
+        string $title,
+        string $content
+    ) {
+        $this->title = $title;
+        $this->content =$content;
     }
 
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-    }
-
+    /**
+     * @return string
+     */
     public function getTitle()
     {
         return $this->title;
     }
 
-    public function setTitle($title)
-    {
-        $this->title = $title;
-    }
-
+    /**
+     * @return string
+     */
     public function getContent()
     {
         return $this->content;
     }
 
-    public function setContent($content)
-    {
-        $this->content = $content;
-    }
-
+    /**
+     * @return bool
+     */
     public function isDone()
     {
         return $this->isDone;
     }
 
+    /**
+     * @param bool $flag
+     */
     public function toggle($flag)
     {
         $this->isDone = $flag;
