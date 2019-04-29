@@ -67,7 +67,7 @@ class UniqueEntityEditValidator extends ConstraintValidator
                 ]
             );
 
-        if(!\is_null($object1)) {
+        if (!\is_null($object1)) {
             if ($temoin->getUsername() !== $object1->getUsername()) {
                 $this->context->buildViolation("Ce nom d'utilisateur est déjà utilisé.")
                     ->atPath('username')
@@ -75,7 +75,7 @@ class UniqueEntityEditValidator extends ConstraintValidator
             }
         }
 
-        if(!\is_null($object2)) {
+        if (!\is_null($object2)) {
             if ($temoin->getEmail() !== $object2->getEmail()) {
                 $this->context->buildViolation("Cette email est déjà utilisée.")
                     ->atPath('email')
