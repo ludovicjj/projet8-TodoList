@@ -1,0 +1,16 @@
+default:
+    suites:
+        all:
+            paths: ['%paths.base%/features/']
+            contexts:
+                - FeatureContext
+
+    extensions:
+        Behat\Symfony2Extension:
+            kernel:
+                class: AppKernel
+        Behat\MinkExtension:
+            sessions:
+                default:
+                    symfony2: ~
+        Behatch\Extension: ~
