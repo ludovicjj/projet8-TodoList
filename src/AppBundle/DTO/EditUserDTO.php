@@ -27,8 +27,8 @@ class EditUserDTO
     public $username;
 
     /**
-     * @var string
-     * @Assert\NotBlank(message="Vous devez saisir un nom d'utilisateur.")
+     * @var string|null
+     * @Assert\NotBlank(message="Vous devez saisir un mot de passe.")
      * @Assert\Length(
      *     max=64,
      *     maxMessage="Votre mot de passe ne peut pas excéder 64 caractéres."
