@@ -2,7 +2,6 @@
 
 namespace AppBundle\Handler;
 
-
 use AppBundle\Builder\AddUserBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormInterface;
