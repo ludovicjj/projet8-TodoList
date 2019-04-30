@@ -40,7 +40,7 @@ class CreateUserDTO
      *     max=60,
      *     maxMessage="Votre email ne peut pas excéder 60 caractéres."
      * )
-     * @UniqueEntityInput(
+     * @UniqueEntity(
      *     class="AppBundle\Entity\User",
      *     fields="email",
      *     message="Cette email est déjà utilisée."
