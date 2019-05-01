@@ -28,15 +28,65 @@
     </head>
 
     <body>
-        <nav class="navbar navbar-light navbar-fixed-top" style="background-color: #e3f2fd;" role="navigation">
+    <nav>
+        <!-- Static navbar -->
+        <div class="navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">To Do List app</a>
-
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-menu">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="{{ path('homepage') }}">To Do List app</a>
                     <img src="{{ asset('img/Logo_OpenClassrooms.png') }}" alt="OpenClassrooms" />
                 </div>
+
+
+                <div class="navbar-collapse collapse navigation" id="main-menu">
+
+                    <!-- Log button -->
+                    <div class="nav navbar-nav navbar-right nav-log">
+                        {% if app.user %}
+                            <a href="{{ path('logout') }}" class="navbar-btn btn btn-danger">Se déconnecter</a>
+                        {% endif %}
+                        {% if not app.user and 'login' != app.request.attributes.get('_route') %}
+                            <a href="{{ path('login') }}" class="navbar-btn btn btn-success">Se connecter</a>
+                        {% endif %}
+                    </div>
+
+                    <!-- Link Menu -->
+                    <ul id="menu-header" class="nav navbar-nav navbar-left">
+
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <li class="dropdown">
+                            <a title="Utilisateur" href="#" data-toggle="dropdown" class="dropdown-toggle">
+                                Utilisateurs <span class="caret"></span>
+                            </a>
+                            <ul role="menu" class="dropdown-menu">
+                                <li><a href="{{ path('user_create') }}">Ajouter un utilisateur</a></li>
+                                <li><a href="{{ path('user_list') }}">Liste des utilisateurs</a></li>
+                            </ul>
+                        </li>
+                        {% endif %}
+
+                        {% if app.user %}
+                        <li class="dropdown">
+                            <a title="tâche" href="#" data-toggle="dropdown" class="dropdown-toggle">
+                                Tâche <span class="caret"></span>
+                            </a>
+                            <ul role="menu" class="dropdown-menu">
+                                <li><a href="{{ path('task_create') }}">Ajouter un tâche</a></li>
+                                <li><a href="{{ path('task_list') ~ '?search=done' }}">Liste des tâche terminés</a></li>
+                                <li><a href="{{ path('task_list') ~ '?search=waiting' }}">Liste des tâche en attente</a></li>
+                            </ul>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
             </div>
-        </nav>
+        </div>
+    </nav>
 
         <!-- Page Content -->
         <div class="container">
