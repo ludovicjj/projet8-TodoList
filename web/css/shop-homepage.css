@@ -78,12 +78,12 @@ footer {
 /** MAIN LINK **/
 /** -----------------------**/
 .navigation ul li {
-    position:relative !important;
+    position:relative;
 }
 
 .navigation > ul  {
     margin-top:0;
-    margin-left:0 !important;
+    margin-left:0;
 }
 
 .navbar-default .navbar-nav>.open>a, #menu-header>li>a:focus, #menu-header>li>a:active {
@@ -129,15 +129,12 @@ footer {
     /** MAIN LINK **/
     .navigation > ul {
         margin-top:0;
-        margin-left:-15px !important;
+        margin-left:-15px;
     }
 
-    .dropdown-toggle {
-        background-color: transparent !important;
-    }
-
-    a.dropdown-toggle:focus {
-        color: orange !important;
+    .navbar-default .navbar-nav>.open>a, #menu-header>li>a:focus, #menu-header>li>a:active {
+        background-color: transparent;
+        color: orange;
     }
 
     /** SUB LINK **/
@@ -147,12 +144,11 @@ footer {
     .dropdown-menu {
         text-align:left;
     }
-    .dropdown-menu>li>a {
-        color: #fff !important;
+    .navbar-default .navbar-nav .open .dropdown-menu>li>a {
+        color: #fff;
     }
-    .dropdown-menu>li>a:hover {
-        color: orange !important;
-        background-color: transparent;
+    .navbar-default .navbar-nav .open .dropdown-menu>li>a:hover {
+        color: orange;
     }
 
     #menu-header>li:first-child {
