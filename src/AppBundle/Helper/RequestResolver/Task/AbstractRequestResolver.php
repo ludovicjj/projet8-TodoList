@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Helper\RequestResolver;
+namespace AppBundle\Helper\RequestResolver\Task;
 
 use Symfony\Component\HttpFoundation\Request;
 
