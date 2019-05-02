@@ -35,14 +35,14 @@ class UniqueEntityEditValidator extends ConstraintValidator
             throw new AccessDeniedHttpException('You must be login.');
         }
 
-        $userUpdate = $this->entityManager->getRepository(User::class)
+        $oldUser = $this->entityManager->getRepository(User::class)
             ->findOneBy(
                 [
                     'id' => $currentRequest->attributes->get('id'),
                 ]
             );
 
-        return $userUpdate;
+        return $oldUser;
     }
 
     public function validate(
