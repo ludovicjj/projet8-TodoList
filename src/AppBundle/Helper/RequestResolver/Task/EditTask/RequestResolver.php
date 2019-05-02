@@ -1,21 +1,18 @@
 <?php
 
-namespace AppBundle\Helper\RequestResolver\Task\ListTask;
+namespace AppBundle\Helper\RequestResolver\Task\EditTask;
 
 use AppBundle\Helper\RequestResolver\Task\AbstractRequestResolver;
 use Symfony\Component\HttpFoundation\Request;
 
 class RequestResolver extends AbstractRequestResolver
 {
-    /**
-     * @param Request $request
-     * @return bool
-     */
     public function resolve(Request $request)
     {
+        $this->checkTaskExist($request);
         $this->checkQueryParam($request);
-        $isDone = ($this->valueParam === 'done') ? true : false;
-
-        return $isDone;
+        $this->checkAllowUser(
+            "Vous ne pouvez pas modifier la tâche d'un autre utilisateur."
+        );
     }
 }
