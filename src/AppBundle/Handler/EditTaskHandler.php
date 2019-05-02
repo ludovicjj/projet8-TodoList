@@ -32,8 +32,7 @@ class EditTaskHandler
      */
     public function handle(FormInterface $form, Task $task)
     {
-        if ($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             EditTaskBuilder::build($form->getData(), $task);
             $this->entityManager->flush();
             $this->flashBag->add('success', 'La tâche a bien été modifiée.');
