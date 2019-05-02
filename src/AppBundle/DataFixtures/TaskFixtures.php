@@ -35,7 +35,7 @@ class TaskFixtures extends Fixture implements DependentFixtureInterface
             [
                 'title' => 'tâche 4',
                 'content' => 'Une tâche créé par un utilisateur anonyme',
-                'user' => null
+                'user' => 'anonymous'
             ]
         ];
 

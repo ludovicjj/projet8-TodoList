@@ -4,37 +4,45 @@ namespace AppBundle\Validator\EditUser;
 
 use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
+use Symfony\Component\HttpFoundation\Request;
 
 class UniqueEntityEditValidator extends ConstraintValidator
 {
     /** @var EntityManagerInterface */
     private $entityManager;
 
-    /** @var RequestStack  */
-    protected $requestStack;
+    /** @var Request|null  */
+    protected $currentRequest;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         RequestStack $requestStack
     ) {
         $this->entityManager = $entityManager;
-        $this->requestStack = $requestStack;
+        $this->currentRequest = $requestStack->getCurrentRequest();
     }
 
     public function getUserUpdated()
     {
-        $userUpdate = $this->entityManager->getRepository(User::class)
+        $currentRequest = (!\is_null($this->currentRequest)) ? $this->currentRequest : null;
+
+        if (is_null($currentRequest)) {
+            throw new AccessDeniedHttpException('You must be login.');
+        }
+
+        $oldUser = $this->entityManager->getRepository(User::class)
             ->findOneBy(
                 [
-                    'id' => $this->requestStack->getCurrentRequest()->attributes->get('id'),
+                    'id' => $currentRequest->attributes->get('id'),
                 ]
             );
 
-        return $userUpdate;
+        return $oldUser;
     }
 
     public function validate(
@@ -51,8 +59,9 @@ class UniqueEntityEditValidator extends ConstraintValidator
             return;
         }
 
-        $temoin = $this->getUserUpdated();
+        $oldUser = $this->getUserUpdated();
 
+        /** @var User|null $object1 */
         $object1 = $this->entityManager->getRepository($constraint->class)
             ->findOneBy(
                 [
@@ -60,6 +69,7 @@ class UniqueEntityEditValidator extends ConstraintValidator
                 ]
             );
 
+        /** @var User|null $object2 */
         $object2 = $this->entityManager->getRepository($constraint->class)
             ->findOneBy(
                 [
@@ -68,7 +78,7 @@ class UniqueEntityEditValidator extends ConstraintValidator
             );
 
         if (!\is_null($object1)) {
-            if ($temoin->getUsername() !== $object1->getUsername()) {
+            if ($oldUser->getUsername() !== $object1->getUsername()) {
                 $this->context->buildViolation("Ce nom d'utilisateur est déjà utilisé.")
                     ->atPath('username')
                     ->addViolation();
@@ -76,7 +86,7 @@ class UniqueEntityEditValidator extends ConstraintValidator
         }
 
         if (!\is_null($object2)) {
-            if ($temoin->getEmail() !== $object2->getEmail()) {
+            if ($oldUser->getEmail() !== $object2->getEmail()) {
                 $this->context->buildViolation("Cette email est déjà utilisée.")
                     ->atPath('email')
                     ->addViolation();

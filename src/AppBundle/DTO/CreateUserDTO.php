@@ -8,7 +8,6 @@ use AppBundle\Validator\CreateUser\UniqueEntity;
 class CreateUserDTO
 {
     /**
-     * @var string|null
      * @Assert\NotBlank(message="Vous devez saisir un nom d'utilisateur.")
      * @Assert\Length(
      *     max=25,
@@ -23,7 +22,6 @@ class CreateUserDTO
     public $username;
 
     /**
-     * @var string|null
      * @Assert\NotBlank(message="Vous devez saisir un mot de passe.")
      * @Assert\Length(
      *     max=64,
@@ -33,7 +31,6 @@ class CreateUserDTO
     public $password;
 
     /**
-     * @var string|null
      * @Assert\NotBlank(message="Vous devez saisir une adresse email.")
      * @Assert\Email(message="Le format de l'adresse n'est pas correcte.")
      * @Assert\Length(
@@ -48,9 +45,6 @@ class CreateUserDTO
      */
     public $email;
 
-    /**
-     * @var bool|null
-     */
     public $roles;
 
     /**

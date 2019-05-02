@@ -7,7 +7,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class TaskDTO
 {
     /**
-     * @var string|null
      * @Assert\NotBlank(message="Vous devez saisir un titre.")
      * @Assert\Length(
      *     max=25,
@@ -17,7 +16,6 @@ class TaskDTO
     public $title;
 
     /**
-     * @var string|null
      * @Assert\NotBlank(message="Vous devez saisir du contenu.")
      */
     public $content;
