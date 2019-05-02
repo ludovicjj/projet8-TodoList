@@ -80,8 +80,7 @@ abstract class AbstractRequestResolver
      */
     protected function checkAllowUser(string $message)
     {
-        if (
-            $this->task->getUser() !== $this->getCurrentUser() &&
+        if ($this->task->getUser() !== $this->getCurrentUser() &&
             !$this->security->isGranted('ROLE_ADMIN')
         ) {
             throw new AccessDeniedHttpException($message);
