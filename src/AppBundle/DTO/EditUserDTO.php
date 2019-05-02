@@ -17,7 +17,6 @@ use AppBundle\Validator\EditUser\UniqueEntityEdit;
 class EditUserDTO
 {
     /**
-     * @var string
      * @Assert\NotBlank(message="Vous devez saisir un nom d'utilisateur.")
      * @Assert\Length(
      *     max=25,
@@ -27,7 +26,6 @@ class EditUserDTO
     public $username;
 
     /**
-     * @var string|null
      * @Assert\NotBlank(message="Vous devez saisir un mot de passe.")
      * @Assert\Length(
      *     max=64,
@@ -37,7 +35,6 @@ class EditUserDTO
     public $password;
 
     /**
-     * @var string
      * @Assert\NotBlank(message="Vous devez saisir un nom d'utilisateur.")
      * @Assert\Email(message="Le format de l'adresse n'est pas correcte.")
      * @Assert\Length(
