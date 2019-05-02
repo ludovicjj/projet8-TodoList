@@ -100,4 +100,12 @@ class Task extends AbstractEntity
     {
         $this->isDone = $flag;
     }
+
+    /**
+     * @return User|null
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
 }
