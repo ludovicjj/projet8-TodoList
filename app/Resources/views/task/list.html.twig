@@ -21,7 +21,7 @@
                 </div>
                 <div>
                     {% if task.user is not null and app.user.username == task.user.username or is_granted('ROLE_ADMIN') %}
-                        <a href="{{ path('task_toggle', {'id':task.id}) }}"
+                        <a href="{{ path('task_toggle', {'id':task.id}) ~ '?search=' ~ app.request.query.get('search')}}"
                            class="btn btn-success btn-sm pull-right"
                         >
                             {% if not task.isDone %}Marquer comme faite{% else %}Marquer non terminée{% endif %}
