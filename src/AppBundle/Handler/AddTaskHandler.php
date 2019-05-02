@@ -36,7 +36,6 @@ class AddTaskHandler
     public function handle(FormInterface $form)
     {
         if ($form->isSubmitted() && $form->isValid()) {
-
             $task = $this->builder->build($form->getData());
             $this->entityManager->persist($task);
             $this->entityManager->flush();
