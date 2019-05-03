@@ -3,42 +3,60 @@
 {% block header_img %}<img class="slide-image" src="{{ asset('img/todolist_content.jpg') }}" alt="todo list">{% endblock %}
 
 {% block body %}
-    <a href="{{ path('task_create') }}" class="btn btn-info pull-right">Créer une tâche</a>
-    <div class="row">
-        {% for task in tasks %}
-        <div class="col-sm-4 col-lg-4 col-md-4">
-            <div class="thumbnail">
-                <div class="caption">
-                    <h4 class="pull-right">
-                        {% if task.isDone %}<span class="glyphicon glyphicon-ok"></span>{% else %}<span class="glyphicon glyphicon-remove"></span>{% endif %}
-                    </h4>
-                    {% if task.user is not null and app.user.username == task.user.username or is_granted('ROLE_ADMIN') %}
-                        <h4><a href="{{ path('task_edit', {'id' : task.id }) ~ '?search=' ~ app.request.query.get('search') }}">{{ task.title }}</a></h4>
-                    {% else %}
-                        <h4>{{ task.title }}</h4>
-                    {% endif %}
-                    <p>{{ task.content }}</p>
-                </div>
-                <div>
-                    {% if task.user is not null and app.user.username == task.user.username or is_granted('ROLE_ADMIN') %}
-                        <a href="{{ path('task_toggle', {'id':task.id}) ~ '?search=' ~ app.request.query.get('search')}}"
-                           class="btn btn-success btn-sm pull-right"
-                        >
-                            {% if not task.isDone %}Marquer comme faite{% else %}Marquer non terminée{% endif %}
-                        </a>
-                        <a href="{{ path('task_delete', {'id':task.id}) ~ '?search=' ~ app.request.query.get('search')}}"
-                           class="btn btn-danger btn-sm pull-right"
-                        >
-                            Supprimer
-                        </a>
-                    {% endif %}
-                </div>
-            </div>
+    {% if tasks|length == 0 %}
+        <div class="alert alert-warning" role="alert">
+            <p class="alert-align">
+                Il n'y a pas encore de tâche enregistrée.
+                <a href="{{ path('task_create') }}" class="btn btn-warning pull-right">Créer une tâche</a>
+            </p>
         </div>
-        {% else %}
-            <div class="alert alert-warning" role="alert">
-                Il n'y a pas encore de tâche enregistrée. <a href="{{ path('task_create') }}" class="btn btn-warning pull-right">Créer une tâche</a>
+    {% else %}
+        <div class="row">
+            <div class="col-xs-12">
+                <a href="{{ path('task_create') }}" class="btn btn-info pull-right">Créer une tâche</a>
             </div>
-        {% endfor %}
-    </div>
+
+            {% for task in tasks %}
+                <div class="col-sm-4 col-lg-4 col-md-4">
+                    <div class="thumbnail">
+                        <div class="caption">
+                            <h4 class="pull-right">
+                                {% if task.isDone %}
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                {% else %}
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                {% endif %}
+                            </h4>
+                            {% if task.user is not null and app.user.username == task.user.username or is_granted('ROLE_ADMIN') %}
+                                <h4>
+                                    <a href="{{ path('task_edit', {'id' : task.id }) ~ '?search=' ~ app.request.query.get('search') }}">
+                                        {{ task.title }}
+                                    </a>
+                                </h4>
+                            {% else %}
+                                <h4>{{ task.title }}</h4>
+                            {% endif %}
+                            <p>{{ (task.content|length > 150 ? task.content|slice(0, 150) ~ '…' : task.content)  }}</p>
+
+                        </div> <!-- /caption-->
+
+                        <div class="thumbnail-action">
+                            {% if task.user is not null and app.user.username == task.user.username or is_granted('ROLE_ADMIN') %}
+                                <a href="{{ path('task_toggle', {'id':task.id}) ~ '?search=' ~ app.request.query.get('search')}}"
+                                   class="btn btn-success btn-sm"
+                                >
+                                    {% if not task.isDone %}Marquer comme faite{% else %}Marquer non terminée{% endif %}
+                                </a>
+                                <a href="{{ path('task_delete', {'id':task.id}) ~ '?search=' ~ app.request.query.get('search')}}"
+                                   class="btn btn-danger btn-sm"
+                                >
+                                    Supprimer
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div> <!-- /thumbnail-->
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
 {% endblock %}

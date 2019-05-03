@@ -139,6 +139,11 @@ footer {
     line-height: 35px;
 }
 
+.thumbnail>.thumbnail-action {
+    padding: 15px 0 5px 0;
+    text-align: right
+}
+
 @media (max-width: 768px) {
     /** MAIN LINK **/
     .navigation > ul {
