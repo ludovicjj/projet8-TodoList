@@ -88,6 +88,12 @@
         </div>
     </nav>
 
+    <div class="jumbotron">
+        <div class="container-fluid">
+            {% block header_img %}<img class="slide-image" src="{{ asset('img/todolist_homepage.jpg') }}" alt="todo list">{% endblock %}
+        </div>
+    </div>
+
         <!-- Page Content -->
         <div class="container">
             <div class="row">
@@ -115,7 +121,6 @@
                         </div>
                     {% endfor %}
 
-                    {% block header_img %}<img class="slide-image" src="{{ asset('img/todolist_homepage.jpg') }}" alt="todo list">{% endblock %}
                     {% block header_title %}{% endblock %}
                 </div>
             </div>
