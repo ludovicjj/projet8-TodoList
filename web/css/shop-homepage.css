@@ -5,7 +5,7 @@
  */
 
 body {
-    padding-top: 100px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    padding-top: 50px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
 
 .slide-image {
@@ -124,6 +124,25 @@ footer {
     background-color: transparent;
 }
 
+/** header_title **/
+.jumbotron {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.jumbotron>.container-fluid {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+/** Vertical align button in alert **/
+.alert-align {
+    line-height: 35px;
+}
+
+.thumbnail>.thumbnail-action {
+    padding: 15px 0 5px 0;
+    text-align: right
+}
 
 @media (max-width: 768px) {
     /** MAIN LINK **/
