@@ -40,6 +40,16 @@
 
                         </div> <!-- /caption-->
 
+                        <div class="thumbnail-info">
+                            <p>
+                                {% if task.user is not null %}
+                                    <small>Par <strong>{{ task.user.username }}</strong>, le {{ task.createdAt|date('d:m:Y') }}</small>
+                                {% else %}
+                                    <small>Par <strong>anonyme</strong>, le {{ task.createdAt|date('d:m:Y') }}</small>
+                                {% endif %}
+                            </p>
+                        </div>
+
                         <div class="thumbnail-action">
                             {% if task.user is not null and app.user.username == task.user.username or is_granted('ROLE_ADMIN') %}
                                 <a href="{{ path('task_toggle', {'id':task.id}) ~ '?search=' ~ app.request.query.get('search')}}"
