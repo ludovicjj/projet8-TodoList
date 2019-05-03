@@ -134,6 +134,11 @@ footer {
     padding-left: 0;
 }
 
+/** Vertical align button in alert **/
+.alert-align {
+    line-height: 35px;
+}
+
 @media (max-width: 768px) {
     /** MAIN LINK **/
     .navigation > ul {
