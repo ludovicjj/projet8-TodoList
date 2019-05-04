@@ -47,3 +47,12 @@ Feature: Check constraints validations when add user.
     Then I should see "Vous devez saisir un nom d'utilisateur."
     And I should see "Vous devez saisir un mot de passe."
     And I should see "Vous devez saisir une adresse email."
+
+  Scenario: [fail] submit form with invalid email
+    When I fill in "Nom d'utilisateur" with "johndoe"
+    And I fill in "Mot de passe" with "pass"
+    And I fill in "Tapez le mot de passe à nouveau" with "pass"
+    And I fill in "Adresse email" with "user.com"
+    And I select "Utilisateur" from "Rôle"
+    And I press "Ajouter"
+    Then I should see "Le format de l'adresse n'est pas correcte."
