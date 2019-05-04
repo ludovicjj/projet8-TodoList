@@ -65,3 +65,12 @@ Feature: Check constraints validations when add user.
     And I select "Utilisateur" from "Rôle"
     And I press "Ajouter"
     Then I should see "Votre nom d'utilisateur ne peut pas excéder 25 caractéres."
+
+  Scenario: [fail] submit form with email over 60 characters
+    When I fill in "Nom d'utilisateur" with "johndoe"
+    And I fill in "Mot de passe" with "pass"
+    And I fill in "Tapez le mot de passe à nouveau" with "pass"
+    And I fill in "Adresse email" with "johndoejohndoejohndoejohndoejohndoejohndoejohndoejohndoejohndoe@gmail.com"
+    And I select "Utilisateur" from "Rôle"
+    And I press "Ajouter"
+    Then I should see "Votre email ne peut pas excéder 60 caractéres."
