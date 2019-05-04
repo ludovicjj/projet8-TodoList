@@ -1,7 +1,8 @@
-ToDoList
-========
+#ToDoList
 
-## Context
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/6cd8ea55552f4262b65260c83bf18313)](https://www.codacy.com/app/ludovicjj/projet8-TodoList?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ludovicjj/projet8-TodoList&amp;utm_campaign=Badge_Grade)
+
+##Context
 Improve an an existing project :
 
 - [ToDoList](https://openclassrooms.com/projects/ameliorer-un-projet-existant-1)
@@ -64,9 +65,9 @@ Improve an an existing project :
 1.  Create database for the test env with the following command :
 
         php bin/console doctrine:database:create --env=test
-        
+
 2.  Run test with the following command :
 
         vendor/bin/behat
-        
+
 3.  Code-coverage
