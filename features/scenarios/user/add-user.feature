@@ -56,3 +56,12 @@ Feature: Check constraints validations when add user.
     And I select "Utilisateur" from "Rôle"
     And I press "Ajouter"
     Then I should see "Le format de l'adresse n'est pas correcte."
+
+  Scenario: [fail] submit form with username over 25 characters
+    When I fill in "Nom d'utilisateur" with "johndoejohndoejohndoejohndoe"
+    And I fill in "Mot de passe" with "pass"
+    And I fill in "Tapez le mot de passe à nouveau" with "pass"
+    And I fill in "Adresse email" with "johndoe@gmail.com"
+    And I select "Utilisateur" from "Rôle"
+    And I press "Ajouter"
+    Then I should see "Votre nom d'utilisateur ne peut pas excéder 25 caractéres."
