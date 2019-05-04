@@ -5,13 +5,13 @@
 ##Context
 Improve an an existing project :
 
-* [ToDoList](https://openclassrooms.com/projects/ameliorer-un-projet-existant-1)
+*   [ToDoList](https://openclassrooms.com/projects/ameliorer-un-projet-existant-1)
 
 ## Project using
-* PHP 7.2
-* Symfony 3.4
-* Doctrine
-* Behat
+*   PHP 7.2
+*   Symfony 3.4
+*   Doctrine
+*   Behat
 
 ## How to instal
 1.  Download project :
@@ -47,16 +47,16 @@ Improve an an existing project :
         php bin/console server:run
 
 ## How to use
-* First, run project with the following command and go to ^/login
+*   First, run project with the following command and go to ^/login
 
         php bin/console server:run
 
-* Use these credentials to test admin features :
+*   Use these credentials to test admin features :
 
         username: admin
         password: admin
 
-* Or use these credentials to test user features :
+*   Or use these credentials to test user features :
 
         username: user1
         password: user1
