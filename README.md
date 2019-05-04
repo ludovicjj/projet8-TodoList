@@ -1,8 +1,8 @@
-#ToDoList
+# ToDoList
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/6cd8ea55552f4262b65260c83bf18313)](https://www.codacy.com/app/ludovicjj/projet8-TodoList?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ludovicjj/projet8-TodoList&amp;utm_campaign=Badge_Grade)
 
-##Context
+## Context
 Improve an an existing project :
 
 *   [ToDoList](https://openclassrooms.com/projects/ameliorer-un-projet-existant-1)
