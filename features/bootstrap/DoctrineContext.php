@@ -4,6 +4,7 @@ use Behat\Behat\Context\Context;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\ToolsException;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 use Behat\Gherkin\Node\TableNode;
@@ -61,4 +62,34 @@ class DoctrineContext implements Context
         }
         $this->entityManager->flush();
     }
+
+    /**
+     * @Then user with username :username should exist in database and have the following role :role
+     * @param $username
+     * @param $role
+     * @throws Exception
+     */
+    public function userWithUsernameShouldExistInDatabaseAndHaveTheFollowingRole($username, $role)
+    {
+        $user = $this->entityManager
+            ->getRepository(User::class)
+            ->findOneBy(['username' => $username]);
+
+        if (\is_null($user)) {
+            throw new NotFoundHttpException(
+                sprintf('Not found user with username : %s', $username)
+            );
+        }
+
+        if (!\in_array($role, $user->getRoles())) {
+            throw new \Exception(
+                sprintf(
+                    'User with username %s should have the following role : %s',
+                    $username,
+                    $role
+                )
+            );
+        }
+    }
+
 }

@@ -14,7 +14,27 @@ Feature: Only register user can login and only admin can see Utilisateurs
     Then I should see "Mauvais identifiant."
 
   Scenario: [fail] submit form with invalid password
-    When I fill in "Nom d'utilisateur" with "admin"
-    And I fill in "Mot de passe" with "hello"
+    When I fill in "Nom d'utilisateur :" with "admin"
+    And I fill in "Mot de passe :" with "hello"
     And I press "Se connecter"
     Then I should see "Mot de passe incorrect."
+
+  Scenario: [success] submit form with user credentials
+    When I fill in "Nom d'utilisateur :" with "user"
+    And I fill in "Mot de passe :" with "pass"
+    And I press "Se connecter"
+    Then I should be on "/"
+    And I should see "Se déconnecter"
+    And I should not see "Utilisateurs"
+    And I should see "Tâches"
+    And user with username "user" should exist in database and have the following role "ROLE_USER"
+
+  Scenario: [success] submit form with admin credentials
+    When I fill in "Nom d'utilisateur :" with "admin"
+    And I fill in "Mot de passe :" with "pass"
+    And I press "Se connecter"
+    Then I should be on "/"
+    And I should see "Se déconnecter"
+    And I should see "Utilisateurs"
+    And I should see "Tâches"
+    And user with username "admin" should exist in database and have the following role "ROLE_ADMIN"
