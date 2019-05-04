@@ -83,3 +83,14 @@ Feature: Check constraints validations when add user.
     And I select "Utilisateur" from "Rôle"
     And I press "Ajouter"
     Then I should see "Votre mot de passe ne peut pas excéder 64 caractéres."
+
+  Scenario: [success] submit form with valid data
+    When I fill in "Nom d'utilisateur" with "johndoe"
+    And I fill in "Mot de passe" with "pass"
+    And I fill in "Tapez le mot de passe à nouveau" with "pass"
+    And I fill in "Adresse email" with "johndoe@gmail.com"
+    And I select "Utilisateur" from "Rôle"
+    And I press "Ajouter"
+    Then I should be on "/users"
+    And I should see "Superbe ! L'utilisateur a bien été ajouté."
+    And user with username "johndoe" should exist in database and have the following role "ROLE_USER"
