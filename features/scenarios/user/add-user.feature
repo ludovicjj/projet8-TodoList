@@ -41,3 +41,9 @@ Feature: Check constraints validations when add user.
     And I select "Utilisateur" from "Rôle"
     And I press "Ajouter"
     Then I should see "Les deux mots de passe doivent correspondre."
+
+  Scenario: [fail] submit form with empty data
+    When I press "Ajouter"
+    Then I should see "Vous devez saisir un nom d'utilisateur."
+    And I should see "Vous devez saisir un mot de passe."
+    And I should see "Vous devez saisir une adresse email."
