@@ -23,3 +23,12 @@ Feature: Check constraints validations when add user.
     And I select "Utilisateur" from "Rôle"
     And I press "Ajouter"
     Then I should see "Ce nom d'utilisateur est déjà utilisé."
+
+  Scenario: [fail] submit form with already exist email
+    When I fill in "Nom d'utilisateur" with "johndoe"
+    And I fill in "Mot de passe" with "pass"
+    And I fill in "Tapez le mot de passe à nouveau" with "pass"
+    And I fill in "Adresse email" with "admin@gmail.com"
+    And I select "Utilisateur" from "Rôle"
+    And I press "Ajouter"
+    Then I should see "Cette email est déjà utilisée."
