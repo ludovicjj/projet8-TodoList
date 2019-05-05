@@ -13,3 +13,10 @@ Feature: after authentication, i need to be able to edit user.
     And I press "Se connecter"
     And I am on "/users/aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa/edit"
     Then the response status code should be 403
+
+  Scenario: [fail] Trying to edit not exist user
+    When I fill in "Nom d'utilisateur" with "admin"
+    And I fill in "Mot de passe" with "admin"
+    And I press "Se connecter"
+    And I am on "/users/aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaab/edit"
+    Then the response status code should be 404
