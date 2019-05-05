@@ -160,7 +160,7 @@ class DoctrineContext implements Context
 
         if (\is_null($task)) {
             throw new NotFoundHttpException(
-                sprintf('Not found task with title %s', $task)
+                sprintf('Not found task with title %s', $title)
             );
         }
 
@@ -179,5 +179,28 @@ class DoctrineContext implements Context
         $property->setAccessible(true);
         $property->setValue($entity, $identifier);
         $this->entityManager->flush();
+    }
+
+    /**
+     * @Then task with title :title should not exist in database
+     * @param $title
+     * @throws NonUniqueResultException
+     * @throws \Exception
+     */
+    public function taskWithTitleShouldNotExistInDatabase($title)
+    {
+        $task = $this->entityManager->getRepository(Task::class)
+            ->createQueryBuilder('t')
+            ->where('t.title = :task_title')
+            ->setParameter('task_title', $title)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+
+        if (!\is_null($task)) {
+            throw new \Exception(
+                sprintf('Task with title: %s should no exist but it found', $title)
+            );
+        }
     }
 }
