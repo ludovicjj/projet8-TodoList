@@ -10,6 +10,8 @@ use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 use Behat\Gherkin\Node\TableNode;
 use AppBundle\Factory\Entity\UserFactory;
 use AppBundle\Entity\User;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\Console\Input\ArrayInput;
 
 class DoctrineContext implements Context
 {
@@ -92,4 +94,21 @@ class DoctrineContext implements Context
         }
     }
 
+    /**
+     * @Given I load fixtures with the following command :command
+     * @param $command
+     * @throws Exception
+     */
+    public function iLoadFixturesWithTheFollowingCommand($command)
+    {
+        $application = new Application($this->kernel);
+
+        $application->setAutoExit(false);
+        $input = new ArrayInput([
+            'command' => $command,
+            '--no-interaction' => true,
+        ]);
+        $output = new \Symfony\Component\Console\Output\NullOutput();
+        $application->run($input, $output);
+    }
 }
