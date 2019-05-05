@@ -25,3 +25,10 @@ Feature: after authentication, i need to be able to add task.
     And I fill in "Contenu" with "Ceci est la description de la tâche"
     And I press "Ajouter"
     Then I should see "Le titre ne peut pas excéder 25 caractéres."
+
+  Scenario: [success] submit form with valid data
+    When I fill in "titre" with "Mon titre"
+    And I fill in "Contenu" with "Ceci est la description de la tâche"
+    And I press "Ajouter"
+    Then I should see "Superbe ! La tâche a été bien été ajoutée."
+    And I should be on "/tasks"
