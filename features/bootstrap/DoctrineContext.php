@@ -5,6 +5,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\ToolsException;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 use Behat\Gherkin\Node\TableNode;
@@ -13,6 +14,7 @@ use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 use AppBundle\Entity\AbstractEntity;
+use AppBundle\Entity\Task;
 
 class DoctrineContext implements Context
 {
@@ -114,13 +116,13 @@ class DoctrineContext implements Context
     }
 
     /**
-     * @Given user with username :username should have following id :id
+     * @Given user with username :username should have following id :userId
      * @param $username
-     * @param $id
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @param $userId
+     * @throws NonUniqueResultException
      * @throws ReflectionException
      */
-    public function userWithUsernameShouldHaveFollowingId($username, $id)
+    public function userWithUsernameShouldHaveFollowingId($username, $userId)
     {
         $user = $this->entityManager->getRepository(User::class)
             ->createQueryBuilder('u')
@@ -136,7 +138,33 @@ class DoctrineContext implements Context
             );
         }
 
-        $this->resetId($user, $id);
+        $this->resetId($user, $userId);
+    }
+
+    /**
+     * @Given task with title :arg1 should have following id :arg2
+     * @param $title
+     * @param $taskId
+     * @throws ReflectionException
+     * @throws NonUniqueResultException
+     */
+    public function taskWithTitleShouldHaveFollowingId($title, $taskId)
+    {
+        $task = $this->entityManager->getRepository(Task::class)
+            ->createQueryBuilder('t')
+            ->where('t.title = :task_title')
+            ->setParameter('task_title', $title)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+
+        if (\is_null($task)) {
+            throw new NotFoundHttpException(
+                sprintf('Not found task with title %s', $task)
+            );
+        }
+
+        $this->resetId($task, $taskId);
     }
 
     /**
