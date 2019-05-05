@@ -32,3 +32,15 @@ Feature: after authentication, i need to be able to edit user.
     And I fill in "Nom d'utilisateur" with "admin"
     And I press "Modifier"
     Then I should see "Ce nom d'utilisateur est déjà utilisé."
+
+  Scenario: [fail] submit form with and already existing email
+    When I fill in "Nom d'utilisateur" with "admin"
+    And I fill in "Mot de passe" with "admin"
+    And I press "Se connecter"
+    And I am on "/users/aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa/edit"
+    And the "Nom d'utilisateur" field should contain "user1"
+    And the "Adresse email" field should contain "user1@gmail.com"
+    And the "select[id='edit_user_roles'] option[selected='selected']" element should contain "Utilisateur"
+    And I fill in "Adresse email" with "admin@gmail.com"
+    And I press "Modifier"
+    Then I should see "Cette email est déjà utilisée."
