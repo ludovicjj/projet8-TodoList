@@ -13,3 +13,10 @@ Feature: after authentication, i need to be able to toggle task.
     And I press "Se connecter"
     And I am on "/tasks/aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa/toggle"
     Then the response status code should be 403
+
+  Scenario: [fail] trying to toggle no exist task
+    And I fill in "Nom d'utilisateur :" with "user1"
+    And I fill in "Mot de passe :" with "user1"
+    And I press "Se connecter"
+    And I am on "/tasks/aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaab/toggle"
+    Then the response status code should be 404
