@@ -12,6 +12,7 @@ use AppBundle\Factory\Entity\UserFactory;
 use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
+use AppBundle\Entity\AbstractEntity;
 
 class DoctrineContext implements Context
 {
@@ -110,5 +111,45 @@ class DoctrineContext implements Context
         ]);
         $output = new \Symfony\Component\Console\Output\NullOutput();
         $application->run($input, $output);
+    }
+
+    /**
+     * @Given user with username :username should have following id :id
+     * @param $username
+     * @param $id
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws ReflectionException
+     */
+    public function userWithUsernameShouldHaveFollowingId($username, $id)
+    {
+        $user = $this->entityManager->getRepository(User::class)
+            ->createQueryBuilder('u')
+            ->where('u.username = :user_username')
+            ->setParameter('user_username', $username)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+
+        if (\is_null($user)) {
+            throw new NotFoundHttpException(
+                sprintf('Not found user with username %s', $username)
+            );
+        }
+
+        $this->resetId($user, $id);
+    }
+
+    /**
+     * @param AbstractEntity $entity
+     * @param string $identifier
+     * @throws ReflectionException
+     */
+    protected function resetId(AbstractEntity $entity, string $identifier)
+    {
+        $reflection = new \ReflectionClass($entity);
+        $property = $reflection->getProperty('id');
+        $property->setAccessible(true);
+        $property->setValue($entity, $identifier);
+        $this->entityManager->flush();
     }
 }
