@@ -45,6 +45,17 @@ Feature: after authentication, i need to be able to edit user.
     And I press "Modifier"
     Then I should see "Cette email est déjà utilisée."
 
+  Scenario: [fail] submit form without fill field password
+    When I fill in "Nom d'utilisateur :" with "admin"
+    And I fill in "Mot de passe :" with "admin"
+    And I press "Se connecter"
+    And I am on "/users/aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa/edit"
+    And the "Nom d'utilisateur" field should contain "user1"
+    And the "Adresse email" field should contain "user1@gmail.com"
+    And the "select[id='edit_user_roles'] option[selected='selected']" element should contain "Utilisateur"
+    And I press "Modifier"
+    Then I should see "Vous devez saisir un mot de passe."
+
   Scenario: [success] submit form with valid data
     When I fill in "Nom d'utilisateur :" with "admin"
     And I fill in "Mot de passe :" with "admin"
