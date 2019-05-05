@@ -34,8 +34,8 @@ Feature: after authentication, i need to be able to edit user.
     Then I should see "Ce nom d'utilisateur est déjà utilisé."
 
   Scenario: [fail] submit form with and already existing email
-    When I fill in "Nom d'utilisateur" with "admin"
-    And I fill in "Mot de passe" with "admin"
+    When I fill in "Nom d'utilisateur :" with "admin"
+    And I fill in "Mot de passe :" with "admin"
     And I press "Se connecter"
     And I am on "/users/aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa/edit"
     And the "Nom d'utilisateur" field should contain "user1"
@@ -44,3 +44,20 @@ Feature: after authentication, i need to be able to edit user.
     And I fill in "Adresse email" with "admin@gmail.com"
     And I press "Modifier"
     Then I should see "Cette email est déjà utilisée."
+
+  Scenario: [success] submit form with valid data
+    When I fill in "Nom d'utilisateur :" with "admin"
+    And I fill in "Mot de passe :" with "admin"
+    And I press "Se connecter"
+    And I am on "/users/aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa/edit"
+    And I fill in "Nom d'utilisateur" with "johndoe"
+    And I fill in "Mot de passe" with "pass"
+    And I fill in "Tapez le mot de passe à nouveau" with "pass"
+    And I fill in "Adresse email" with "user1@gmail.com"
+    And I select "Administrateur" from "Rôle"
+    And I press "Modifier"
+    Then I should be on "/users"
+    And I should see "Superbe ! L'utilisateur a bien été modifié"
+    And I should see "johndoe"
+    And I should see "user1@gmail.com"
+    And user with username "johndoe" should exist in database and have the following role "ROLE_ADMIN"
