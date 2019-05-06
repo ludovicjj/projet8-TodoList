@@ -11,7 +11,10 @@ Improve an an existing project :
 *   PHP 7.2
 *   Symfony 3.4
 *   Doctrine
+*   Ramsey/uuid-doctrine
+*   Doctrine-fixtures
 *   Behat
+*   Behat-code-coverage
 
 ## How to instal
 1.  Download project :
@@ -70,4 +73,10 @@ Improve an an existing project :
 
         vendor/bin/behat
 
-3.  Code-coverage
+3.  Behat-code-covarge require Xdebug, download Xdebug and enable it in php.ini. Code-coverage will be generated in var/behat-coverage, open with your browser var/behat-coverage/index.html
+
+## Useful links
+
+*   [download xdebug with wizzard](https://xdebug.org/wizard.php)
+*   [behat-code-coverage](https://github.com/leanphp/behat-code-coverage)
+*   [behat documentation](http://docs.behat.org/en/latest/)

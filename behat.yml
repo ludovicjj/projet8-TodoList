@@ -18,3 +18,18 @@ default:
                 default:
                     symfony2: ~
         Behatch\Extension: ~
+        LeanPHP\Behat\CodeCoverage\Extension:
+            drivers:
+                - local
+            filter:
+                whitelist:
+                    include:
+                        directories:
+                            'src': ~
+                    exclude:
+                        directories:
+                            'src/AppBundle/Entity': ~
+            report:
+                format:   html
+                options:
+                    target: var/behat-coverage
