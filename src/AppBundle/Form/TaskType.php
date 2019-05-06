@@ -24,12 +24,7 @@ class TaskType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => TaskDTO::class,
-            'empty_data' => function (FormInterface $form) {
-                return new TaskDTO(
-                    $form->get('title')->getData(),
-                    $form->get('content')->getData()
-                );
-            }
+            'empty_data' => new TaskDTO()
         ]);
     }
 }
