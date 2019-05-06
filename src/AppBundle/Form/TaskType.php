@@ -8,7 +8,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\FormInterface;
 
 class TaskType extends AbstractType
 {
@@ -24,12 +23,7 @@ class TaskType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => TaskDTO::class,
-            'empty_data' => function (FormInterface $form) {
-                return new TaskDTO(
-                    $form->get('title')->getData(),
-                    $form->get('content')->getData()
-                );
-            }
+            'empty_data' => new TaskDTO()
         ]);
     }
 }
