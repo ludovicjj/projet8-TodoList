@@ -16,6 +16,7 @@ security:
         main:
             anonymous: ~
             pattern: ^/
+            provider: doctrine
             form_login:
                 login_path: login
                 check_path: login_check
