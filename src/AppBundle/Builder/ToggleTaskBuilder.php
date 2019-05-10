@@ -24,14 +24,18 @@ class ToggleTaskBuilder
 
     /**
      * @param Task $task
+     * @param string $valueParam
      */
-    public function toggle(Task $task)
+    public function toggle(Task $task, string $valueParam)
     {
         $task->toggle(!$task->isDone());
         $this->entityManager->flush();
+
+        $statusTask = ($valueParam == 'done') ? 'non terminée' : 'faite';
+
         $this->flashBag->add(
             'success',
-            sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle())
+            sprintf('La tâche %s a bien été marquée comme %s.', $task->getTitle(), $statusTask)
         );
     }
 }

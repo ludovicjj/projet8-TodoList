@@ -8,7 +8,7 @@ Don't forget to check your code with PSR-1 and PSR-2
 vendor/bin/phpcs
 ```
 
-And provide test with your patch
+And provide behat test with your patch
 
 ## Instruction
 
