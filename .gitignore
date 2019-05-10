@@ -12,6 +12,7 @@
 /var/sessions/*
 !var/sessions/.gitkeep
 !var/SymfonyRequirements.php
+!/var/behat-coverage
 /vendor/
 /web/bundles/
 /.idea
