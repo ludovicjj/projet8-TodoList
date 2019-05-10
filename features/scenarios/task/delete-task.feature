@@ -26,7 +26,7 @@ Feature: after authentication, i need to be able to delete task.
     And I fill in "Mot de passe :" with "user1"
     And I press "Se connecter"
     And I follow "Tâches"
-    And I follow "Liste des tâche en attente"
+    And I follow "Liste des tâches à faire"
     And I should be on "/tasks?search=waiting"
     When I follow "Supprimer"
     Then I should be on "/tasks?search=waiting"

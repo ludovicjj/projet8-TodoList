@@ -38,7 +38,7 @@ class ToggleTaskController
     public function toggleTaskAction(Request $request)
     {
         $this->resolver->resolve($request);
-        $this->builder->toggle($this->resolver->getTask());
+        $this->builder->toggle($this->resolver->getTask(), $this->resolver->getValueParam());
         return new RedirectResponse(
             $this->urlGenerator->generate('task_list').$this->resolver->getRouteParam()
         );
